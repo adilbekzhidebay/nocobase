@@ -1,0 +1,41 @@
+env:
+  open:
+    APP_ENV: production
+    DB_DIALECT: postgres
+    DB_HOST: postgres
+    DB_PORT: 5432
+    DB_DATABASE: nocobase_db
+    TZ: Asia/Almaty
+  secret:
+    APP_KEY:
+      existingSecret: nocobase-app-creds
+      existingSecretKey: appkey
+    DB_USER:
+      existingSecret: nocobase-db-creds
+      existingSecretKey: username
+    DB_PASSWORD:
+      existingSecret: nocobase-db-creds
+      existingSecretKey: password
+    NOCOBASE_PKG_USERNAME:
+      existingSecret: nocobase-pkg-creds
+      existingSecretKey: username
+    NOCOBASE_PKG_PASSWORD:
+      existingSecret: nocobase-pkg-creds
+      existingSecretKey: password
+
+replicaCount: 1
+
+ingress:
+  enabled: false
+
+persistentVolume:
+  enabled: true
+  accessModes:
+    - ReadWriteMany
+  labels: {}
+  annotations: {}
+  existingClaim: "nocobase"
+  mountPath: /app/nocobase/storage
+  size: 8Gi
+  subPath: ""
+  volumeName: "nocobase"
